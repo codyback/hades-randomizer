@@ -1,0 +1,18 @@
+export default [
+  { name: "Hard Labor", tiers: [1, 1, 1, 1, 1], weighting: 35 },
+  { name: "Lasting Consequences", tiers: [1, 1, 1, 1], weighting: 45 },
+  { name: "Convenience Fee", tiers: [1, 1], weighting: 75 },
+  { name: "Jury Summons", tiers: [1, 1, 1], weighting: 50 },
+  { name: "Extreme Measures", tiers: [4, 3, 2, 1], weighting: 90 },
+  { name: "Calisthenics Program", tiers: [1, 1], weighting: 25 },
+  { name: "Benefits Package", tiers: [3, 2], weighting: 80 },
+  { name: "Middle Management", tiers: [2], weighting: 60 },
+  { name: "Underworld Customs", tiers: [2], weighting: 60 },
+  { name: "Forced Overtime", tiers: [3, 3], weighting: 45 },
+  { name: "Heightened Security", tiers: [1], weighting: 35 },
+  { name: "Routine Inspection", tiers: [2, 2, 2, 2], weighting: 20 },
+  { name: "Damage Control", tiers: [1, 1], weighting: 55 },
+  { name: "Approval Process", tiers: [3, 2], weighting: 15 },
+  { name: "Tight Deadline", tiers: [3, 2, 1], weighting: 35 },
+  { name: "Personal Liability", tiers: [1], weighting: 0 },
+];
