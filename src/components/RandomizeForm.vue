@@ -16,6 +16,7 @@
         $emit('randomize', HellMode, WeightedRandomization, HeatLevel)
       "
     ></v-switch>
+    <v-spacer></v-spacer>
     <v-slider
       v-model="HeatLevel"
       :label="`Heat Level`"
@@ -25,8 +26,8 @@
       "
       thumb-label="always"
       color="orange darken-3"
-      :min="min"
-      :max="max"
+      :min="HellMode ? 5 : 1"
+      :max="63"
       dense
     ></v-slider>
     <v-row align="center" justify="space-around">
