@@ -29,14 +29,14 @@
       :max="max"
       dense
     ></v-slider>
-    <!-- <v-row align="center" justify="space-around">
+    <v-row align="center" justify="space-around">
       <v-btn
         color="orange darken-3"
         text
         @click="$emit('randomize', HellMode, WeightedRandomization, HeatLevel)"
         >Randomize</v-btn
       >
-    </v-row> -->
+    </v-row>
   </v-container>
 </template>
 

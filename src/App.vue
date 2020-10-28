@@ -177,6 +177,8 @@ export default {
 
       const mirrorArr = [];
       for (const option of this.mirrors) {
+        const randomMirror = this.completelyRandom(option);
+        console.log(randomMirror);
         mirrorArr.push(this.completelyRandom(option));
       }
       this.mirrors = mirrorArr;
