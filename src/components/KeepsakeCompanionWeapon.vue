@@ -20,7 +20,7 @@
             Companion
           </v-col>
           <v-col cols="7" class="center">
-            {{ companion }}
+            {{ companion.name }}
           </v-col>
         </v-row>
       </v-list-item>

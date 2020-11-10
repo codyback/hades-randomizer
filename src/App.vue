@@ -2,16 +2,49 @@
   <v-app id="app">
     <v-main>
       <v-container>
-        <v-row>
-          <v-col cols="12" sm="4">
-            <v-sheet rounded="lg" min-height="210">
-              <RandomizeForm v-on:randomize="updateData" />
+        <v-row align="auto">
+          <v-col cols="0" xl="2"></v-col>
+          <v-col cols="12" sm="6" xl="4">
+            <v-sheet rounded min-height="210" min-width="360">
+              <h3>
+                Settings
+              </h3>
+
+              <RandomizeForm
+                :minHeat="minHeat"
+                :hellMode="hellMode"
+                :heatLevel="heatLevel"
+                v-on:randomize="updateData"
+              />
             </v-sheet>
+            <v-row>
+              <v-col>
+                <v-sheet rounded style="text-align: center" min-width="360">
+                  <v-row>
+                    <v-col cols="6">
+                      <FilterForm
+                        :companions="allCompanions"
+                        :weapons="allWeapons"
+                        :keepsakes="allKeepsakes"
+                      />
+                    </v-col>
+                    <v-col cols="6">
+                      <HeatSettings
+                        :heats="allHeats"
+                        v-on:custom-heat-settings="customHeatSettings"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-sheet>
+              </v-col>
+            </v-row>
           </v-col>
 
-          <v-col cols="12" sm="6">
-            <v-sheet rounded="lg">
-              <v-expansion-panels v-model="panel">
+          <v-col cols="12" sm="6" xl="4">
+            <v-sheet rounded min-width="360">
+              <h3>Randomized</h3>
+
+              <v-expansion-panels v-model="randomizedPanels" flat accordion>
                 <HeatComponent :heats="heats" />
                 <MirrorComponent :mirrors="mirrors" />
                 <KeepsakeCompanionWeaponCompenent
@@ -29,22 +62,26 @@
 </template>
 
 <script>
-import HeatData from "./data/heat";
-import CompanionData from "./data/companion";
-import KeepsakeData from "./data/keepsake";
-import MirrorData from "./data/mirror";
-import WeaponData from "./data/weapon";
+import Data from "./data/data";
 
 import HeatComponent from "./components/Heat";
 import KeepsakeCompanionWeaponCompenent from "./components/KeepsakeCompanionWeapon";
 import MirrorComponent from "./components/Mirror";
 import RandomizeForm from "./components/RandomizeForm";
+import FilterForm from "./components/FilterForm";
+import HeatSettings from "./components/HeatSettings";
 
-let rHeat = [];
-let rCompanion = [];
-let rKeepsake = [];
-let rMirror = [];
-let rWeapon = [];
+const HeatData = Data.heats;
+const CompanionData = Data.companions;
+const KeepsakeData = Data.keepsakes;
+const MirrorData = Data.mirrors;
+const WeaponData = Data.weapons;
+
+let filteredKeepsakes = [];
+let filteredCompanions = [];
+let filteredWeapons = [];
+
+let currentHeat = 0;
 
 export default {
   name: "App",
@@ -54,38 +91,111 @@ export default {
     KeepsakeCompanionWeaponCompenent,
     MirrorComponent,
     RandomizeForm,
+    FilterForm,
+    HeatSettings,
   },
 
   methods: {
-    resetData: function() {
-      rHeat = [];
-      rCompanion = [];
-      rKeepsake = [];
-      rMirror = [];
-      rWeapon = [];
+    resetHeat: function() {
+      const rHeat = [];
 
       for (const heat of HeatData) {
         heat["count"] = 0;
         rHeat.push(JSON.parse(JSON.stringify(heat)));
       }
-      for (const companion of CompanionData) {
+
+      return rHeat;
+    },
+
+    resetCompanion: function() {
+      const rCompanion = [];
+
+      for (let i = 0; i < CompanionData.length; i++) {
+        if (filteredCompanions.includes(i)) break;
+        const companion = CompanionData[i];
         rCompanion.push(JSON.parse(JSON.stringify(companion)));
       }
-      for (const keepsake of KeepsakeData) {
+
+      return rCompanion;
+    },
+
+    resetKeepsake: function() {
+      const rKeepsake = [];
+
+      for (let i = 0; i < KeepsakeData.length; i++) {
+        if (filteredKeepsakes.includes(i)) break;
+        const keepsake = KeepsakeData[i];
         rKeepsake.push(JSON.parse(JSON.stringify(keepsake)));
       }
+
+      return rKeepsake;
+    },
+
+    resetMirror: function() {
+      const rMirror = [];
+
       for (const mirror of MirrorData) {
         rMirror.push(JSON.parse(JSON.stringify(mirror)));
       }
-      for (const weapon of WeaponData) {
+
+      return rMirror;
+    },
+
+    resetWeapon: function() {
+      const rWeapon = [];
+
+      for (let i = 0; i < WeaponData.length; i++) {
+        if (filteredWeapons.includes(i)) break;
+        const weapon = WeaponData[i];
         rWeapon.push(JSON.parse(JSON.stringify(weapon)));
       }
 
-      this.heats = rHeat;
-      this.companions = rCompanion;
-      this.keepsakes = rKeepsake;
-      this.mirrors = rMirror;
-      this.weapons = rWeapon;
+      return rWeapon;
+    },
+
+    resetData: function() {
+      this.heats = this.resetHeat();
+      this.companions = this.resetCompanion();
+      this.keepsakes = this.resetKeepsake();
+      this.mirrors = this.resetMirror();
+      this.weapons = this.resetWeapon();
+      this.customHeats = [];
+      currentHeat = 0;
+    },
+
+    filter: function(type, index, checked) {
+      switch (type) {
+        case "keepsake":
+          if (checked) {
+            const i = filteredKeepsakes.indexOf(index);
+            if (i > -1) {
+              filteredKeepsakes.splice(i, 1);
+            }
+          } else {
+            filteredKeepsakes.push(index);
+          }
+          break;
+        case "companion":
+          if (checked) {
+            const i = filteredCompanions.indexOf(index);
+            if (i > -1) {
+              filteredCompanions.splice(i, 1);
+            }
+          } else {
+            filteredCompanions.push(index);
+          }
+          break;
+        case "weapon":
+          if (checked) {
+            const i = filteredWeapons.indexOf(index);
+            if (i > -1) {
+              filteredWeapons.splice(i, 1);
+            }
+          } else {
+            filteredWeapons.push(index);
+          }
+          break;
+      }
     },
 
     shuffleArray: function(arr) {
@@ -127,20 +237,19 @@ export default {
       }
     },
 
-    updateData: function(hellMode, weightedRandomization, heatLevel) {
-      let currentHeat = 0;
-      this.resetData();
-      if (hellMode) {
-        // sets the heat options that are on by default in Hell Mode
-        const hellOptions = [0, 1, 3, 5, 15];
-        for (const option of hellOptions) {
-          this.heats[option].count += 1;
-          currentHeat += this.heats[option].tiers.pop();
-        }
+    handleHellMode: function() {
+      if (this.hellMode) {
+        if (this.heats.length !== 16) this.heats.push(HeatData[15]);
       } else {
-        if (this.heats.length === 16) {
-          this.heats.pop();
-        }
+        this.heats.pop();
+      }
+    },
+
+    randomizeHeat: function(weightedRandomization, heatLevel) {
+      for (let i = 0; i < this.customHeats.length; i++) {
+        this.heats[i].count = this.customHeats[i].count;
+        this.heats[i].tiers = this.customHeats[i].tiers;
+        currentHeat = this.minHeat;
       }
 
       let loopCount = 0;
@@ -167,38 +276,79 @@ export default {
         }
       }
       if (loopCount > 49) {
-        this.resetData();
         this.updateData();
       }
+    },
 
-      const randomWeapon = this.completelyRandom(this.weapons);
-      const randomAspect = this.completelyRandom(randomWeapon.aspects);
-      this.weapons = { name: randomWeapon.name, aspects: randomAspect };
-
+    randomizeMirror: function() {
       const mirrorArr = [];
       for (const option of this.mirrors) {
         mirrorArr.push(this.completelyRandom(option));
       }
-      this.mirrors = mirrorArr;
 
-      this.keepsakes = this.completelyRandom(this.keepsakes);
+      return mirrorArr;
+    },
 
-      this.companions = this.completelyRandom(this.companions);
+    randomizeKeepsake: function() {
+      return this.completelyRandom(this.keepsakes);
+    },
+
+    randomizeCompanion: function() {
+      return this.completelyRandom(this.companions);
+    },
+
+    randomizeWeapon: function() {
+      const randomWeapon = this.completelyRandom(this.weapons);
+      const randomAspect = this.completelyRandom(randomWeapon.aspects);
+      return { name: randomWeapon.name, aspects: randomAspect.name };
+    },
+
+    updateData: function(weightedRandomization, heatLevel) {
+      this.resetData();
+      this.handleHellMode();
+      this.randomizeHeat(weightedRandomization, heatLevel);
+      this.weapons = this.randomizeWeapon();
+      this.mirrors = this.randomizeMirror();
+      this.keepsakes = this.randomizeKeepsake();
+      this.companions = this.randomizeCompanion();
+    },
+    customHeatSettings: function(customHeats, hellMode, customHeatLevel) {
+      this.resetData();
+      this.minHeat = customHeatLevel;
+      this.heatLevel = customHeatLevel;
+      this.hellMode = hellMode;
+      this.customHeats = customHeats;
+      this.updateData(this.weightedRandomization, customHeatLevel);
     },
   },
 
   created: function() {
     this.resetData();
-    this.updateData(false, true, 20);
+    this.updateData(true, 20);
   },
 
   data: () => ({
-    heats: rHeat,
-    companions: rCompanion,
-    keepsakes: rKeepsake,
-    mirrors: rMirror,
-    weapons: rWeapon,
-    panel: 0,
+    heats: HeatData,
+    companions: CompanionData,
+    keepsakes: KeepsakeData,
+    mirrors: MirrorData,
+    weapons: WeaponData,
+    allHeats: HeatData,
+    allKeepsakes: KeepsakeData,
+    allCompanions: CompanionData,
+    allWeapons: WeaponData,
+    randomizedPanels: 0,
+    minHeat: 1,
+    hellMode: false,
+    heatLevel: 20,
+    customHeats: [],
   }),
 };
 </script>
+
+<style>
+h3 {
+  text-align: center;
+  padding-top: 8px;
+}
+</style>

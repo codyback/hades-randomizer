@@ -8,10 +8,10 @@
         :class="mirror.inverse ? 'lime--text' : 'red--text'"
       >
         <v-row justify="space-around">
-          <v-col cols="8">
+          <v-col cols="7">
             {{ mirror.name }}
           </v-col>
-          <v-col cols="1"> </v-col>
+          <v-col cols="3"> </v-col>
         </v-row>
       </div>
     </v-expansion-panel-content>
@@ -28,11 +28,5 @@ export default {
 <style scoped>
 h1 {
   text-align: center;
-}
-.red {
-  color: #e26956;
-}
-.yellow {
-  color: #e1fc5f;
 }
 </style>

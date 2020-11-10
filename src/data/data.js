@@ -1,0 +1,161 @@
+export default {
+  companions: [
+    { name: "Battie" },
+    { name: "Mort" },
+    { name: "Rib" },
+    { name: "Shady" },
+    { name: "Fidi" },
+    { name: "Antos" },
+  ],
+  heats: [
+    { name: "Hard Labor", tiers: [1, 1, 1, 1, 1], weighting: 35 },
+    { name: "Lasting Consequences", tiers: [1, 1, 1, 1], weighting: 45 },
+    { name: "Convenience Fee", tiers: [1, 1], weighting: 75 },
+    { name: "Jury Summons", tiers: [1, 1, 1], weighting: 50 },
+    { name: "Extreme Measures", tiers: [4, 3, 2, 1], weighting: 90 },
+    { name: "Calisthenics Program", tiers: [1, 1], weighting: 25 },
+    { name: "Benefits Package", tiers: [3, 2], weighting: 80 },
+    { name: "Middle Management", tiers: [2], weighting: 60 },
+    { name: "Underworld Customs", tiers: [2], weighting: 60 },
+    { name: "Forced Overtime", tiers: [3, 3], weighting: 45 },
+    { name: "Heightened Security", tiers: [1], weighting: 35 },
+    { name: "Routine Inspection", tiers: [2, 2, 2, 2], weighting: 20 },
+    { name: "Damage Control", tiers: [1, 1], weighting: 55 },
+    { name: "Approval Process", tiers: [3, 2], weighting: 15 },
+    { name: "Tight Deadline", tiers: [3, 2, 1], weighting: 35 },
+    { name: "Personal Liability", tiers: [1], weighting: 0 },
+  ],
+  keepsakes: [
+    { name: "Old Spiked Collar", weighting: 20 },
+    { name: "Myrmidon Bracer", weighting: 10 },
+    { name: "Black Shawl", weighting: 25 },
+    { name: "Pierced Butterfly", weighting: 35 },
+    { name: "Bone Hourglass", weighting: 20 },
+    { name: "Chthonic Coin Purse", weighting: 45 },
+    { name: "Skull Earring", weighting: 30 },
+    { name: "Distant Memory", weighting: 25 },
+    { name: "Harpy Feather Duster", weighting: 35 },
+    { name: "Lucky Tooth", weighting: 30 },
+    { name: "Thunder Signet", weighting: 60 },
+    { name: "Conch Shell", weighting: 60 },
+    { name: "Owl Pendant", weighting: 60 },
+    { name: "Eternal Rose", weighting: 60 },
+    { name: "Blood-Filled Vial", weighting: 60 },
+    { name: "Adamant Arrowhead", weighting: 60 },
+    { name: "Overflowing Cup", weighting: 60 },
+    { name: "Lambent Plume", weighting: 35 },
+    { name: "Frostbitten Horn", weighting: 60 },
+    { name: "Cosmic Egg", weighting: 30 },
+    { name: "Shattered Shackle", weighting: 40 },
+    { name: "Evergreen Acorn", weighting: 15 },
+    { name: "Broken Spearpoint", weighting: 20 },
+    { name: "Pom Blossom", weighting: 50 },
+    { name: "Sigil of the Dead", weighting: 40 },
+  ],
+  mirrors: [
+    [
+      { name: "Shadow Presence", inverse: false },
+      { name: "Fiery Presence", inverse: true },
+    ],
+    [
+      { name: "Chthonic Vitality", inverse: false },
+      { name: "Dark Regeneration", inverse: true },
+    ],
+    [
+      { name: "Death Defiance", inverse: false },
+      { name: "Stubborn Defiance", inverse: true },
+    ],
+    [
+      { name: "Greater Reflex", inverse: false },
+      { name: "Ruthless Reflex", inverse: true },
+    ],
+    [
+      { name: "Boiling Blood", inverse: false },
+      { name: "Abyssal Blood", inverse: true },
+    ],
+    [
+      { name: "Infernal Soul", inverse: false },
+      { name: "Stygian Soul", inverse: true },
+    ],
+    [
+      { name: "Deep Pockets", inverse: false },
+      { name: "Golden Touch", inverse: true },
+    ],
+    [
+      { name: "Thick Skin", inverse: false },
+      { name: "High Confidence", inverse: true },
+    ],
+    [
+      { name: "Privileged Status", inverse: false },
+      { name: "Family Favorite", inverse: true },
+    ],
+    [
+      { name: "Olympian Favor", inverse: false },
+      { name: "Dark Foresight", inverse: true },
+    ],
+    [
+      { name: "Gods' Pride", inverse: false },
+      { name: "Gods' Legacy", inverse: true },
+    ],
+    [
+      { name: "Fated Authority", inverse: false },
+      { name: "Fated Persuasion", inverse: true },
+    ],
+  ],
+  weapons: [
+    {
+      name: "Stygius",
+      aspects: [
+        { name: "Zagreus" },
+        { name: "Nemesis" },
+        { name: "Poseidon" },
+        { name: "Arthur" },
+      ],
+    },
+    {
+      name: "Varatha",
+      aspects: [
+        { name: "Zagreus" },
+        { name: "Achilles" },
+        { name: "Hades" },
+        { name: "Guan Yu" },
+      ],
+    },
+    {
+      name: "Aegis",
+      aspects: [
+        { name: "Zagreus" },
+        { name: "Chaos" },
+        { name: "Zeus" },
+        { name: "Beowulf" },
+      ],
+    },
+    {
+      name: "Coronacht",
+      aspects: [
+        { name: "Zagreus" },
+        { name: "Chiron" },
+        { name: "Hera" },
+        { name: "Rama" },
+      ],
+    },
+    {
+      name: "Malphon",
+      aspects: [
+        { name: "Zagreus" },
+        { name: "Talos" },
+        { name: "Demeter" },
+        { name: "Gilgamesh" },
+      ],
+    },
+    {
+      name: "Exagryph",
+      aspects: [
+        { name: "Zagreus" },
+        { name: "Eris" },
+        { name: "Hestia" },
+        { name: "Lucifer" },
+      ],
+    },
+  ],
+};
