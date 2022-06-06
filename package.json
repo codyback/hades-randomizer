@@ -1,29 +1,21 @@
 {
   "name": "hades-randomizer",
-  "private": true,
   "version": "2.0.0",
+  "description": "mono-repo for hades-randomizer",
+  "main": "index.js",
+  "repository": "git@github.com:codyback/hades-randomizer.git",
+  "author": "Cody Backus <codyback@outlook.com>",
+  "license": "MIT",
+  "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
-  },
-  "dependencies": {
-    "@quasar/extras": "^1.14.0",
-    "pinia": "^2.0.14",
-    "quasar": "^2.7.1",
-    "vue": "^3.2.25",
-    "vue-router": "4"
+    "client": "yarn workspace client run dev",
+    "client:build": "yarn workspace client run build",
+    "client:test": "yarn workspace client run test"
   },
   "devDependencies": {
-    "@quasar/vite-plugin": "^1.0.10",
-    "@vitejs/plugin-vue": "^2.3.3",
-    "sass": "1.32.12",
-    "typescript": "^4.5.4",
-    "vite": "^2.9.9",
-    "vitest": "^0.14.0",
-    "vue-tsc": "^0.34.7"
+    "lerna": "^5.0.0"
   },
-  "license": "MIT"
+  "workspaces": [
+    "src/*"
+  ]
 }

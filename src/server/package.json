@@ -1,0 +1,9 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server for hades-randomizer",
+  "main": "index.js",
+  "author": "Cody Backus",
+  "license": "MIT",
+  "private": true
+}
