@@ -10,9 +10,14 @@
   "scripts": {
     "client": "yarn workspace client run dev",
     "client:build": "yarn workspace client run build",
-    "client:test": "yarn workspace client run test"
+    "client:test": "yarn workspace client run test",
+    "e2e:run": "cypress run",
+    "e2e:open": "cypress open"
   },
   "devDependencies": {
+    "@cypress/vue": "^3.1.0",
+    "@cypress/webpack-dev-server": "^1.8.4",
+    "cypress": "^10.0.3",
     "lerna": "^5.0.0"
   },
   "workspaces": [
