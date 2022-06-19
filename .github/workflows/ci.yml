@@ -95,26 +95,3 @@ jobs:
           browser: chrome
           start: yarn client
           wait-on: 'http://localhost:3000'
-
-  e2e-edge:
-    needs: [e2e-chrome]
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup node 16.13.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.13.x
-          cache: yarn
-
-      - name: Install yarn dependencies
-        run: yarn
-
-      - name: Run edge E2E tests using cypress-io/github-action
-        uses: cypress-io/github-action@v4
-        with:
-          browser: edge
-          start: yarn client
-          start-windows: npm run client:windows:server
-          wait-on: 'http://localhost:3000'
