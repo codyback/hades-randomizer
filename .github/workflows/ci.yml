@@ -116,4 +116,5 @@ jobs:
         with:
           browser: edge
           start: yarn client
+          start-windows: npm run client:windows:server
           wait-on: 'http://localhost:3000'
