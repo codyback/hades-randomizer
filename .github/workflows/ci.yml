@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node 16.13.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: yarn
+
+      - name: Install yarn dependencies
+        run: yarn
+
+      - name: Run audit
+        run: yarn audit
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node 16.13.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: yarn
+
+      - name: Install yarn dependencies
+        run: yarn
+
+      - name: Run eslint
+        run: yarn lint
+
+  build:
+    needs: [lint]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node 16.13.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: yarn
+
+      - name: Install yarn dependencies
+        run: yarn
+
+      - run: yarn build
+
+  test:
+    needs: [lint]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node 16.13.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: yarn
+
+      - name: Install yarn dependencies
+        run: yarn
+
+      - run: yarn test
+
+  e2e-chrome:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node 16.13.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: yarn
+
+      - name: Install yarn dependencies
+        run: yarn
+
+      - name: Run chrome E2E tests using cypress-io/github-action
+        uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+          start: yarn client
+          wait-on: 'http://localhost:3000'

@@ -8,7 +8,6 @@
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
@@ -16,5 +15,4 @@
   },
   "include": ["./**/*.ts", "./**/*.d.ts", "./**/*.tsx", "./**/*.vue"],
   "exclude": ["./**/*.spec.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
 }
