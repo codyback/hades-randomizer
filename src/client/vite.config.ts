@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin';
 
@@ -13,4 +13,8 @@ export default defineConfig({
       sassVariables: 'src/assets/scss/quasar-variables.scss',
     }),
   ],
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+  },
 });

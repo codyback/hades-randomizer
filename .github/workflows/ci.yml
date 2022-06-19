@@ -93,9 +93,11 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
+          start: yarn client
+          wait-on: 'http://localhost:3000'
 
   e2e-edge:
-    needs: [build, test]
+    needs: [e2e-chrome]
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -113,3 +115,5 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: edge
+          start: yarn client
+          wait-on: 'http://localhost:3000'
