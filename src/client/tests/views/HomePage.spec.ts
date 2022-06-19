@@ -12,9 +12,9 @@ describe('views:HomePage', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  it('renders correctly - with prop', () => {
+  it('renders correctly - with prop', async () => {
     const wrapper = mountWith();
-    wrapper.setProps({ heading: 'Hello World!' });
+    await wrapper.setProps({ heading: 'Hello World!' });
     expect(wrapper.element).toMatchSnapshot();
   });
 });
