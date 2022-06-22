@@ -2,9 +2,10 @@ import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
 import HomePage from '../../src/views/HomePage.vue';
 
-const mountWith = () => mount(HomePage, {
-  shallow: true,
-});
+const mountWith = () =>
+  mount(HomePage, {
+    shallow: true,
+  });
 
 describe('views:HomePage', () => {
   it('renders correctly', () => {
