@@ -1,8 +1,9 @@
+/* eslint-disable import/extensions */
 import { createApp } from 'vue';
-import App from './App.vue';
 import { createPinia } from 'pinia';
-import router from './router';
 import { Quasar } from 'quasar';
+import App from './App.vue';
+import router from './router';
 
 import 'quasar/src/css/index.sass';
 
