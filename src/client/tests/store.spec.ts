@@ -59,7 +59,7 @@ describe('Store', () => {
       it('should return all heats', () => {
         const store = useStore();
         const heats = store.getHeats;
-        expect(heats.length).toBe(16);
+        expect(heats.length).toBe(15);
         expect(store.heats.length).toBe(16);
         expect(heats[0].name).toEqual('Hard Labor');
       });

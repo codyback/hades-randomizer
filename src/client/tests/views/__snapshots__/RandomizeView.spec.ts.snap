@@ -1,0 +1,26 @@
+// Vitest Snapshot v1
+
+exports[`RandomizeView > renders 1`] = `
+<div
+  class="row q-pa-sm"
+>
+  <div
+    class="col-12 col-md"
+  >
+    <randomize-settings-stub />
+    <randomize-filter-stub />
+  </div>
+  <div
+    class="col-12 col-md-5"
+  >
+    <randomize-settings-stub />
+    <randomize-filter-stub />
+  </div>
+  <div
+    class="col-12 col-md"
+  >
+    <randomize-settings-stub />
+    <randomize-filter-stub />
+  </div>
+</div>
+`;

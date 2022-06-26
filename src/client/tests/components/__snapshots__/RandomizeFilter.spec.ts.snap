@@ -1,0 +1,12 @@
+// Vitest Snapshot v1
+
+exports[`Randomize Filter > renders correctly 1`] = `
+<q-card-stub
+  bordered="false"
+  class="filter q-ma-sm"
+  data-v-464ca609=""
+  flat="false"
+  square="false"
+  tag="div"
+/>
+`;

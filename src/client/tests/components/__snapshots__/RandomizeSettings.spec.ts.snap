@@ -1,0 +1,12 @@
+// Vitest Snapshot v1
+
+exports[`RandomizeSettings > renders correctly 1`] = `
+<q-card-stub
+  bordered="false"
+  class="settings q-ma-sm"
+  data-v-7541a218=""
+  flat="false"
+  square="false"
+  tag="div"
+/>
+`;
