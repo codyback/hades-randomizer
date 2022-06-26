@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomePage from './views/HomePage.vue';
+import RandomizeView from './views/RandomizeView.vue';
 
-const routes = [{ path: '/', name: 'Home', component: HomePage }];
+const routes = [{ path: '/', name: 'Random', component: RandomizeView }];
 
 const router = createRouter({
   history: createWebHistory(),

@@ -9,7 +9,7 @@ const useStore = defineStore('main', {
       'Shady',
       'Fidi',
       'Antos',
-    ],
+    ] as const,
     heats: [
       { name: 'Hard Labor', tiers: [1, 1, 1, 1, 1], weighting: 35 },
       { name: 'Lasting Consequences', tiers: [1, 1, 1, 1], weighting: 45 },
@@ -162,11 +162,20 @@ const useStore = defineStore('main', {
       },
     ],
     companionsFilter: [] as string[],
-    heatsFilter: [] as string[],
+    heatsFilter: ['Personal Liability'] as string[],
     keepsakesFilter: [] as string[],
     mirrorsFilter: [] as number[],
     weaponsFilter: [] as string[],
     hellMode: false,
+    hellModeHeats: [
+      'Hard Labor',
+      'Lasting Consequences',
+      'Jury Summons',
+      'Calisthenics Program',
+      'Personal Liability',
+    ],
+    weightedRandomization: true,
+    heatLevel: 20,
   }),
   getters: {
     getCompanions:
@@ -186,6 +195,11 @@ const useStore = defineStore('main', {
           aspects,
         };
       });
+    },
+    getHeatLevelMax: (state) => {
+      const heats = state.heats.filter((heat) => !state.heatsFilter.includes(heat.name));
+      const heatLevels = heats.map((heat) => heat.tiers.reduce((a, b) => a + b, 0));
+      return heatLevels.reduce((a, b) => a + b, 0);
     },
   },
 });
