@@ -9,7 +9,6 @@
         group="filter-group"
         icon="explore"
         label="Heats"
-        default-opened
       >
         <q-card>
           <q-card-section>
@@ -47,6 +46,7 @@
                 dense
                 @click="handleMirrorFilter(index)"
                 :active="store.mirrorsFilter.includes(index)"
+                :disable="disableMirrorFilter(index)"
                 active-class="text-primary"
               >
                 <div class="col">
@@ -78,6 +78,7 @@
                 dense
                 @click="handleKeepsakeFilter(keepsake)"
                 :active="store.keepsakesFilter.includes(keepsake.name)"
+                :disable="disableKeepsakeFilter(keepsake)"
               >
                 {{ keepsake.name }}
               </q-item>
@@ -103,6 +104,7 @@
                 dense
                 @click="handleCompanionFilter(companion)"
                 :active="store.companionsFilter.includes(companion)"
+                :disable="disableCompanionFilter(companion)"
               >
                 {{ companion }}
               </q-item>
@@ -124,12 +126,13 @@
                 v-for="weapon in store.weapons"
                 :key="weapon.name"
                 dense
-                :active="weaponAspectsFiltered(weapon)"
+                :active="allWeaponAspectsFiltered(weapon)"
               >
                 <q-item
                   clickable
                   dense
-                  :active="weaponAspectsFiltered(weapon)"
+                  :active="allWeaponAspectsFiltered(weapon)"
+                  :disable="disableWeaponFilter(weapon)"
                   @click="handleWeaponFilter(weapon)"
                 >
                   {{ weapon.name }}
@@ -141,6 +144,7 @@
                   clickable
                   dense
                   :active="store.weaponsFilter.includes(`${weapon.name}|${aspect}`)"
+                  :disable="disableAspectFilter(weapon, aspect)"
                   @click="handleWeaponAspectFilter(weapon, aspect)"
                 >
                   {{ aspect }}
@@ -156,23 +160,13 @@
 </template>
 
 <script lang="ts" setup>
-import { Store } from 'pinia';
 import useStore from '../store';
 
 const store = useStore();
 
 type Heat = typeof store.heats[0];
-type Mirror = typeof store.mirrors[0];
 type Keepsake = typeof store.keepsakes[0];
 type Weapon = typeof store.weapons[0];
-
-function disableHeatFilter(heat: Heat) {
-  return (
-    (store.heatsFilter.length === 15 && !store.heatsFilter.includes(heat.name)) ||
-    heat.name === 'Personal Liability' ||
-    (store.hellMode && store.hellModeHeats.includes(heat.name))
-  );
-}
 
 function handleHeatFilter(heat: Heat) {
   if (store.heatsFilter.includes(heat.name)) {
@@ -206,7 +200,7 @@ function handleCompanionFilter(companion: string) {
   }
 }
 
-function weaponAspectsFiltered(weapon: Weapon) {
+function allWeaponAspectsFiltered(weapon: Weapon) {
   return weapon.aspects.every((aspect) => store.weaponsFilter.includes(`${weapon.name}|${aspect}`));
 }
 
@@ -215,7 +209,7 @@ function clearWeaponsFilter(weapon: Weapon) {
 }
 
 function handleWeaponFilter(weapon: Weapon) {
-  if (weaponAspectsFiltered(weapon)) {
+  if (allWeaponAspectsFiltered(weapon)) {
     clearWeaponsFilter(weapon);
   } else {
     clearWeaponsFilter(weapon);
@@ -234,6 +228,40 @@ function handleWeaponAspectFilter(weapon: Weapon, aspect: string) {
   }
 }
 
+function disableHeatFilter(heat: Heat) {
+  return (
+    (store.heatsFilter.length === 15 && !store.heatsFilter.includes(heat.name))
+    || heat.name === 'Personal Liability'
+    || (store.hellMode && store.hellModeHeats.includes(heat.name))
+  );
+}
+
+function disableMirrorFilter(index: number) {
+  return store.mirrorsFilter.length === 11 && !store.mirrorsFilter.includes(index);
+}
+
+function disableKeepsakeFilter(keepsake: Keepsake) {
+  return store.keepsakesFilter.length === 24 && !store.keepsakesFilter.includes(keepsake.name);
+}
+
+function disableCompanionFilter(companion: string) {
+  return store.companionsFilter.length === 5 && !store.companionsFilter.includes(companion);
+}
+
+function disableWeaponFilter(weapon: Weapon) {
+  let allAspectsFiltered = true;
+  weapon.aspects.forEach((aspect) => {
+    if (!store.weaponsFilter.includes(`${weapon.name}|${aspect}`)) {
+      allAspectsFiltered = false;
+    }
+  });
+
+  return store.weaponsFilter.length >= 20 && !allAspectsFiltered;
+}
+
+function disableAspectFilter(weapon: Weapon, aspect: string) {
+  return store.weaponsFilter.length === 23 && !store.weaponsFilter.includes(`${weapon.name}|${aspect}`);
+}
 </script>
 
 <style lang="scss" scoped>
