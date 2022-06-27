@@ -181,7 +181,13 @@ const useStore = defineStore('main', {
     getCompanions:
       (state) => state.companions.filter((item) => !state.companionsFilter.includes(item)),
     getHeats:
-      (state) => state.heats.filter((item) => !state.heatsFilter.includes(item.name)),
+      (state) => {
+        const filteredHeats = state.heats.filter((item) => !state.heatsFilter.includes(item.name));
+        return filteredHeats.map((item) => ({
+          ...item,
+          tiers: [...item.tiers],
+        }));
+      },
     getKeepsakes:
       (state) => state.keepsakes.filter((item) => !state.keepsakesFilter.includes(item.name)),
     getMirrors:
@@ -192,7 +198,7 @@ const useStore = defineStore('main', {
         const aspects = weapon.aspects.filter((aspect) => !state.weaponsFilter.includes(`${weapon.name}|${aspect}`));
         return {
           name: weapon.name,
-          aspects,
+          aspects: [...aspects],
         };
       });
     },
