@@ -21,7 +21,7 @@
   "rules": {
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "import/extensions": ["error", "always", {"js": "never", "ts": "never"}],
-    "vue/no-multiple-template-root": ["error", {"allowMultiple": true}]
+    "vue/no-multiple-template-root": "off"
   },
   "settings": {
     "import/resolver": {
