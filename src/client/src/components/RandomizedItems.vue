@@ -2,71 +2,69 @@
   <q-card class="q-ma-sm">
     <q-card-section>
       <h4>Randomized</h4>
-      <q-list
-        dense
-      >
-      <q-expansion-item
-        group="randomized-group"
-        icon="explore"
-        label="Heats"
-        default-opened
-      >
-        <q-card>
-          <q-card-section>
-            <div class="row">
-              <div class="col-md-2 col-0"></div>
-              <div class="col-md-6 col-10">
-                <q-list>
-                  <q-item
-                    v-for="heat in store.heats"
-                    :key="heat.name"
-                    dense
-                  >
-                    {{ heat.name }}
-                  </q-item>
-                </q-list>
+      <q-list dense>
+        <q-expansion-item
+          group="randomized-group"
+          icon="explore"
+          label="Heats"
+          default-opened
+        >
+          <q-card>
+            <q-card-section>
+              <div class="row">
+                <div class="col-md-2 col-0"></div>
+                <div class="col-md-6 col-10">
+                  <q-list>
+                    <q-item v-for="heat in store.heats" :key="heat.name" dense>
+                      {{ heat.name }}
+                    </q-item>
+                  </q-list>
+                </div>
+                <div class="col-md-4 col-2">
+                  <q-list>
+                    <q-item
+                      v-for="(heat, index) in store.heats"
+                      :key="heat.name"
+                      dense
+                    >
+                      {{ randomHeats[index].tiers?.length }}
+                    </q-item>
+                  </q-list>
+                </div>
+                <div class="col-md-2 col-0"></div>
               </div>
-              <div class="col-md-4 col-2">
-                <q-list>
-                  <q-item
-                    v-for="(heat, index) in store.heats"
-                    :key="heat.name"
-                    dense
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
+
+        <q-separator />
+
+        <q-expansion-item
+          group="randomized-group"
+          icon="explore"
+          label="Mirrors"
+        >
+          <q-card>
+            <q-card-section>
+              <q-list>
+                <q-item
+                  v-for="(mirror, index) in randomMirrors"
+                  :key="index"
+                  dense
+                >
+                  <div
+                    :class="`text-${getMirrorColor(
+                      index,
+                      mirror,
+                    )} text-center full-width`"
                   >
-                    {{ randomHeats[index].tiers?.length }}
-                  </q-item>
-                </q-list>
-              </div>
-              <div class="col-md-2 col-0"></div>
-            </div>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
-
-      <q-separator />
-
-      <q-expansion-item
-        group="randomized-group"
-        icon="explore"
-        label="Mirrors"
-      >
-        <q-card>
-          <q-card-section>
-                <q-list>
-                  <q-item
-                    v-for="(mirror, index) in randomMirrors"
-                    :key="index"
-                    dense
-                  >
-                    <div :class="`text-${getMirrorColor(index, mirror)} text-center full-width`">
-                      {{ mirror }}
-                    </div>
-                  </q-item>
-                </q-list>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
-
+                    {{ mirror }}
+                  </div>
+                </q-item>
+              </q-list>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
       </q-list>
     </q-card-section>
   </q-card>
@@ -119,6 +117,7 @@ function getWeightedRandom<T extends hasWeighting>(arr: T[]): T {
   const shuffledArr = shuffleArray([...arr]);
   for (i = 0; i < arr.length; i += 1) {
     cumulativeWeight += shuffledArr[i].weighting;
+    /* c8 ignore next 3 */
     if (randomNum < cumulativeWeight) {
       return shuffledArr[i];
     }
@@ -156,7 +155,9 @@ function randomizeHeats() {
   if (store.hellMode) {
     store.hellModeHeats.forEach((heatName) => {
       const heatIndex = heats.findIndex((h) => h.name === heatName);
-      const actualHeatIndex = randomizedHeats.findIndex((h) => h.name === heatName);
+      const actualHeatIndex = randomizedHeats.findIndex(
+        (h) => h.name === heatName,
+      );
       const heatLevel = heats[heatIndex].tiers.pop();
       if (heatLevel) {
         randomizedHeats[actualHeatIndex].tiers?.push(heatLevel);
@@ -182,7 +183,9 @@ function randomizeHeats() {
 
     if (isValidHeat) {
       const heatName = randomHeat?.name;
-      const actualHeatIndex = randomizedHeats.findIndex((h) => h.name === heatName);
+      const actualHeatIndex = randomizedHeats.findIndex(
+        (h) => h.name === heatName,
+      );
       const heatLevel = heats[heatIndex].tiers.pop();
       if (heatLevel) {
         randomizedHeats[actualHeatIndex].tiers?.push(heatLevel);
@@ -193,6 +196,7 @@ function randomizeHeats() {
     }
 
     // if no possible heats, reset the loop
+    /* c8 ignore next 6 */
     if (loopCount > 500) {
       randomizedHeats = clearRandomHeats();
       heats = getNewHeats();

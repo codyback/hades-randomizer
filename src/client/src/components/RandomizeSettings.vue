@@ -25,12 +25,7 @@
       />
     </q-card-section>
     <q-card-section>
-      <q-btn
-        color="primary"
-        label="Randomize"
-        class="full-width"
-        unelevated
-      />
+      <q-btn color="primary" label="Randomize" class="full-width" unelevated />
     </q-card-section>
   </q-card>
 </template>
@@ -43,25 +38,31 @@ const store = useStore();
 
 const minHeatLevel = ref(1);
 
-watch(() => store.hellMode, (hellMode) => {
-  if (hellMode) {
-    minHeatLevel.value = 5;
-    store.hellModeHeats.forEach((heat) => {
-      if (store.heatsFilter.includes(heat)) {
-        store.heatsFilter.splice(store.heatsFilter.indexOf(heat), 1);
+watch(
+  () => store.hellMode,
+  (hellMode) => {
+    if (hellMode) {
+      minHeatLevel.value = 5;
+      store.hellModeHeats.forEach((heat) => {
+        if (store.heatsFilter.includes(heat)) {
+          store.heatsFilter.splice(store.heatsFilter.indexOf(heat), 1);
+        }
+      });
+    } else {
+      minHeatLevel.value = 1;
+      if (!store.heatsFilter.includes('Personal Liability')) {
+        store.heatsFilter.push('Personal Liability');
       }
-    });
-  } else {
-    minHeatLevel.value = 1;
-    if (!store.heatsFilter.includes('Personal Liability')) {
-      store.heatsFilter.push('Personal Liability');
     }
-  }
-});
+  },
+);
 
-watch(() => store.getHeatLevelMax, (newValue) => {
-  store.heatLevel = Math.min(store.heatLevel, newValue);
-});
+watch(
+  () => store.getHeatLevelMax,
+  (newValue) => {
+    store.heatLevel = Math.min(store.heatLevel, newValue);
+  },
+);
 </script>
 
 <style scoped lang="scss">

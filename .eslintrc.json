@@ -19,8 +19,9 @@
   "plugins": ["vue", "@typescript-eslint"],
   "ignorePatterns": ["**/*.spec.ts"],
   "rules": {
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-    "import/extensions": ["error", "always", {"js": "never", "ts": "never"}],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/extensions": ["error", "always", { "js": "never", "ts": "never" }],
+    "import/prefer-default-export": "off",
     "vue/no-multiple-template-root": "off"
   },
   "settings": {

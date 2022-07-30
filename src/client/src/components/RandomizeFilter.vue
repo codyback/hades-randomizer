@@ -2,126 +2,116 @@
   <q-card class="filter q-ma-sm">
     <q-card-section>
       <h4>Filters</h4>
-      <q-list
-        dense
-      >
-      <q-expansion-item
-        group="filter-group"
-        icon="explore"
-        label="Heats"
-      >
-        <q-card>
-          <q-card-section>
-            <q-list>
-              <q-item
-                v-for="heat in store.heats"
-                :key="heat.name"
-                clickable
-                dense
-                @click="handleHeatFilter(heat)"
-                :active="store.heatsFilter.includes(heat.name)"
-                :disable="disableHeatFilter(heat)"
-              >
-                {{ heat.name }}
-              </q-item>
-            </q-list>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+      <q-list dense>
+        <q-expansion-item group="filter-group" icon="explore" label="Heats">
+          <q-card>
+            <q-card-section>
+              <q-list>
+                <q-item
+                  v-for="heat in store.heats"
+                  :key="heat.name"
+                  clickable
+                  dense
+                  @click="handleHeatFilter(heat)"
+                  :active="store.heatsFilter.includes(heat.name)"
+                  :disable="disableHeatFilter(heat)"
+                >
+                  {{ heat.name }}
+                </q-item>
+              </q-list>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
 
-      <q-separator />
+        <q-separator />
 
-      <q-expansion-item
-        group="filter-group"
-        icon="perm_identity"
-        label="Mirrors"
-      >
-        <q-card>
-          <q-card-section>
-            <q-list>
-              <q-item
-                v-for="(mirror, index) in store.mirrors"
-                :key="index"
-                clickable
-                dense
-                @click="handleMirrorFilter(index)"
-                :active="store.mirrorsFilter.includes(index)"
-                :disable="disableMirrorFilter(index)"
-                active-class="text-primary"
-              >
-                <div class="col">
-                  {{ mirror[0] }}
-                </div>
-                <div class="col">
-                  {{ mirror[1] }}
-                </div>
-              </q-item>
-            </q-list>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+        <q-expansion-item
+          group="filter-group"
+          icon="perm_identity"
+          label="Mirrors"
+        >
+          <q-card>
+            <q-card-section>
+              <q-list>
+                <q-item
+                  v-for="(mirror, index) in store.mirrors"
+                  :key="index"
+                  clickable
+                  dense
+                  @click="handleMirrorFilter(index)"
+                  :active="store.mirrorsFilter.includes(index)"
+                  :disable="disableMirrorFilter(index)"
+                  active-class="text-primary"
+                >
+                  <div class="col">
+                    {{ mirror[0] }}
+                  </div>
+                  <div class="col">
+                    {{ mirror[1] }}
+                  </div>
+                </q-item>
+              </q-list>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
 
-      <q-separator />
+        <q-separator />
 
-      <q-expansion-item
-        group="filter-group"
-        icon="shopping_cart"
-        label="Keepsakes"
-      >
-        <q-card>
-          <q-card-section>
-            <q-list>
-              <q-item
-                v-for="keepsake in store.keepsakes"
-                :key="keepsake.name"
-                clickable
-                dense
-                @click="handleKeepsakeFilter(keepsake)"
-                :active="store.keepsakesFilter.includes(keepsake.name)"
-                :disable="disableKeepsakeFilter(keepsake)"
-              >
-                {{ keepsake.name }}
-              </q-item>
-            </q-list>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+        <q-expansion-item
+          group="filter-group"
+          icon="shopping_cart"
+          label="Keepsakes"
+        >
+          <q-card>
+            <q-card-section>
+              <q-list>
+                <q-item
+                  v-for="keepsake in store.keepsakes"
+                  :key="keepsake.name"
+                  clickable
+                  dense
+                  @click="handleKeepsakeFilter(keepsake)"
+                  :active="store.keepsakesFilter.includes(keepsake.name)"
+                  :disable="disableKeepsakeFilter(keepsake)"
+                >
+                  {{ keepsake.name }}
+                </q-item>
+              </q-list>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
 
-      <q-separator />
+        <q-separator />
 
-      <q-expansion-item
-        group="filter-group"
-        icon="bluetooth"
-        label="Companions"
-      >
-        <q-card>
-          <q-card-section>
-            <q-list>
-              <q-item
-                v-for="companion in store.companions"
-                :key="companion"
-                clickable
-                dense
-                @click="handleCompanionFilter(companion)"
-                :active="store.companionsFilter.includes(companion)"
-                :disable="disableCompanionFilter(companion)"
-              >
-                {{ companion }}
-              </q-item>
-            </q-list>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+        <q-expansion-item
+          group="filter-group"
+          icon="bluetooth"
+          label="Companions"
+        >
+          <q-card>
+            <q-card-section>
+              <q-list>
+                <q-item
+                  v-for="companion in store.companions"
+                  :key="companion"
+                  clickable
+                  dense
+                  @click="handleCompanionFilter(companion)"
+                  :active="store.companionsFilter.includes(companion)"
+                  :disable="disableCompanionFilter(companion)"
+                >
+                  {{ companion }}
+                </q-item>
+              </q-list>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
 
-      <q-separator />
+        <q-separator />
 
-      <q-expansion-item
-        group="filter-group"
-        icon="bluetooth"
-        label="Weapons"
-      >
-        <q-card>
-          <q-card-section>
+        <q-expansion-item group="filter-group" icon="bluetooth" label="Weapons">
+          <q-card>
+            <q-card-section>
               <q-list
                 v-for="weapon in store.weapons"
                 :key="weapon.name"
@@ -143,30 +133,28 @@
                   :inset-level="1"
                   clickable
                   dense
-                  :active="store.weaponsFilter.includes(`${weapon.name}|${aspect}`)"
+                  :active="
+                    store.weaponsFilter.includes(`${weapon.name}|${aspect}`)
+                  "
                   :disable="disableAspectFilter(weapon, aspect)"
                   @click="handleWeaponAspectFilter(weapon, aspect)"
                 >
                   {{ aspect }}
                 </q-item>
               </q-list>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
-    </q-list>
-
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
+      </q-list>
     </q-card-section>
   </q-card>
 </template>
 
 <script lang="ts" setup>
 import useStore from '../store';
+import { Heat, Keepsake, Weapon } from '../types';
 
 const store = useStore();
-
-type Heat = typeof store.heats[0];
-type Keepsake = typeof store.keepsakes[0];
-type Weapon = typeof store.weapons[0];
 
 function handleHeatFilter(heat: Heat) {
   if (store.heatsFilter.includes(heat.name)) {
@@ -186,7 +174,10 @@ function handleMirrorFilter(index: number) {
 
 function handleKeepsakeFilter(keepsake: Keepsake) {
   if (store.keepsakesFilter.includes(keepsake.name)) {
-    store.keepsakesFilter.splice(store.keepsakesFilter.indexOf(keepsake.name), 1);
+    store.keepsakesFilter.splice(
+      store.keepsakesFilter.indexOf(keepsake.name),
+      1,
+    );
   } else {
     store.keepsakesFilter.push(keepsake.name);
   }
@@ -205,7 +196,9 @@ function allWeaponAspectsFiltered(weapon: Weapon) {
 }
 
 function clearWeaponsFilter(weapon: Weapon) {
-  store.weaponsFilter = store.weaponsFilter.filter((aspect) => !aspect.startsWith(weapon.name));
+  store.weaponsFilter = store.weaponsFilter.filter(
+    (aspect) => !aspect.startsWith(weapon.name),
+  );
 }
 
 function handleWeaponFilter(weapon: Weapon) {
@@ -229,23 +222,36 @@ function handleWeaponAspectFilter(weapon: Weapon, aspect: string) {
 }
 
 function disableHeatFilter(heat: Heat) {
+  const maxLength = store.heats.length - 1;
   return (
-    (store.heatsFilter.length === 15 && !store.heatsFilter.includes(heat.name))
+    (store.heatsFilter.length === maxLength
+      && !store.heatsFilter.includes(heat.name))
     || heat.name === 'Personal Liability'
     || (store.hellMode && store.hellModeHeats.includes(heat.name))
   );
 }
 
 function disableMirrorFilter(index: number) {
-  return store.mirrorsFilter.length === 11 && !store.mirrorsFilter.includes(index);
+  const maxLength = store.mirrors.length - 1;
+  return (
+    store.mirrorsFilter.length === maxLength && !store.mirrorsFilter.includes(index)
+  );
 }
 
 function disableKeepsakeFilter(keepsake: Keepsake) {
-  return store.keepsakesFilter.length === 24 && !store.keepsakesFilter.includes(keepsake.name);
+  const maxLength = store.keepsakes.length - 1;
+  return (
+    store.keepsakesFilter.length === maxLength
+    && !store.keepsakesFilter.includes(keepsake.name)
+  );
 }
 
 function disableCompanionFilter(companion: string) {
-  return store.companionsFilter.length === 5 && !store.companionsFilter.includes(companion);
+  const maxLength = store.companions.length - 1;
+  return (
+    store.companionsFilter.length === maxLength
+    && !store.companionsFilter.includes(companion)
+  );
 }
 
 function disableWeaponFilter(weapon: Weapon) {
@@ -260,7 +266,10 @@ function disableWeaponFilter(weapon: Weapon) {
 }
 
 function disableAspectFilter(weapon: Weapon, aspect: string) {
-  return store.weaponsFilter.length === 23 && !store.weaponsFilter.includes(`${weapon.name}|${aspect}`);
+  return (
+    store.weaponsFilter.length === 23
+    && !store.weaponsFilter.includes(`${weapon.name}|${aspect}`)
+  );
 }
 </script>
 

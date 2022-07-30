@@ -10,9 +10,6 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "skipLibCheck": true,
-    "baseUrl": "/src/"
-  },
-  "include": ["./**/*.ts", "./**/*.d.ts", "./**/*.tsx", "./**/*.vue"],
-  "exclude": ["./**/*.spec.ts"],
+    "skipLibCheck": true
+  }
 }

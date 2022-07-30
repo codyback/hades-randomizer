@@ -8,10 +8,10 @@ import RandomizeSettings from '../../src/components/RandomizeSettings.vue';
 const mountWith = () => {
   return shallowMount(RandomizeSettings, {
     global: {
-      plugins: [ createTestingPinia() ],
-    }
+      plugins: [createTestingPinia()],
+    },
   });
-}
+};
 
 describe('RandomizeSettings', () => {
   let wrapper: any;
