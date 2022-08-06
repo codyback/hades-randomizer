@@ -1,12 +1,10 @@
 class RandomizePage {
-  private url = '/';
-
   visit(waitForLoad = true) {
     if (waitForLoad) {
-      cy.visit(this.url);
+      cy.visit('/');
       return this.randomizeTitle().should('be.visible');
     }
-    return cy.visit(this.url);
+    return cy.visit('/');
   }
 
   randomizeTitle() {
@@ -31,6 +29,25 @@ class RandomizePage {
   }
 
   // RandomizeFilter component
+  filterHeatsExpansion() {
+    return cy.get('[data-cy="filterExpansionHeats"]');
+  }
+
+  filterMirrorsExpansion() {
+    return cy.get('[data-cy="filterExpansionMirrors"]');
+  }
+
+  filterKeepsakesExpansion() {
+    return cy.get('[data-cy="filterExpansionKeepsakes"]');
+  }
+
+  filterCompanionsExpansion() {
+    return cy.get('[data-cy="filterExpansionCompanions"]');
+  }
+
+  filterWeaponsExpansion() {
+    return cy.get('[data-cy="filterExpansionWeapons"]');
+  }
 
   // RandomizedItems component
   randomizedHeatsExpansion() {
@@ -47,6 +64,22 @@ class RandomizePage {
 
   randomizedMirrorsList() {
     return cy.get('[data-cy="mirrorsRandomizedList"]');
+  }
+
+  randomizedMiscExpansion() {
+    return cy.get('[data-cy="miscRandomizedExpansion"]');
+  }
+
+  randomizedCompanionItem() {
+    return cy.get('[data-cy="companionRandomizedItem"]');
+  }
+
+  randomizedKeepsakeItem() {
+    return cy.get('[data-cy="keepsakeRandomizedItem"]');
+  }
+
+  randomizedWeaponItem() {
+    return cy.get('[data-cy="weaponRandomizedItem"]');
   }
 }
 

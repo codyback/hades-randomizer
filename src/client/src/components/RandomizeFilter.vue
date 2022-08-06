@@ -3,7 +3,11 @@
     <q-card-section>
       <h4>Filters</h4>
       <q-list dense>
-        <q-expansion-item group="filter-group" label="Heats">
+        <q-expansion-item
+          group="filter-group"
+          label="Heats"
+          data-cy="filterExpansionHeats"
+        >
           <q-card>
             <q-card-section>
               <q-list>
@@ -28,6 +32,7 @@
         <q-expansion-item
           group="filter-group"
           label="Mirrors"
+          data-cy="filterExpansionMirrors"
         >
           <q-card>
             <q-card-section>
@@ -59,6 +64,7 @@
         <q-expansion-item
           group="filter-group"
           label="Keepsakes"
+          data-cy="filterExpansionKeepsakes"
         >
           <q-card>
             <q-card-section>
@@ -84,6 +90,7 @@
         <q-expansion-item
           group="filter-group"
           label="Companions"
+          data-cy="filterExpansionCompanions"
         >
           <q-card>
             <q-card-section>
@@ -106,7 +113,11 @@
 
         <q-separator />
 
-        <q-expansion-item group="filter-group" label="Weapons">
+        <q-expansion-item
+          group="filter-group"
+          label="Weapons"
+          data-cy="filterExpansionWeapons"
+        >
           <q-card>
             <q-card-section>
               <q-list
@@ -231,7 +242,8 @@ function disableHeatFilter(heat: Heat) {
 function disableMirrorFilter(index: number) {
   const maxLength = store.mirrors.length - 1;
   return (
-    store.mirrorsFilter.length === maxLength && !store.mirrorsFilter.includes(index)
+    store.mirrorsFilter.length === maxLength
+    && !store.mirrorsFilter.includes(index)
   );
 }
 

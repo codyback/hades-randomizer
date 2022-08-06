@@ -81,7 +81,6 @@
             <q-card-section>
               <q-list>
                 <q-item
-                  data-cy="companionRandomizedItem"
                   dense
                 >
                 <div
@@ -91,12 +90,12 @@
                 </div>
                 <div
                   class="text-center col-6"
+                  data-cy="companionRandomizedItem"
                 >
                   {{ randomCompanion }}
                 </div>
                 </q-item>
                 <q-item
-                  data-cy="keepsakeRandomizedItem"
                   dense
                 >
                 <div
@@ -106,12 +105,12 @@
                 </div>
                 <div
                   class="text-center col-6"
+                  data-cy="keepsakeRandomizedItem"
                 >
                   {{ randomKeepsake }}
                 </div>
                 </q-item>
                 <q-item
-                  data-cy="weaponRandomizedItem"
                   dense
                 >
                 <div
@@ -121,6 +120,7 @@
                 </div>
                 <div
                   class="text-center col-6"
+                  data-cy="weaponRandomizedItem"
                 >
                   {{ randomWeapon.name }} - {{ randomWeapon.aspect}}
                 </div>
