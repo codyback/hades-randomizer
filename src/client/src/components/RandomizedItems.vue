@@ -1,21 +1,25 @@
 <template>
   <q-card class="q-ma-sm">
     <q-card-section>
-      <h4>Randomized</h4>
+      <h4 data-cy="randomizeTitle">Randomized</h4>
       <q-list dense>
         <q-expansion-item
           group="randomized-group"
-          icon="explore"
           label="Heats"
           default-opened
+          data-cy="heatsRandomizedExpansion"
         >
           <q-card>
             <q-card-section>
               <div class="row">
                 <div class="col-md-2 col-0"></div>
                 <div class="col-md-6 col-10">
-                  <q-list>
-                    <q-item v-for="heat in store.heats" :key="heat.name" dense>
+                  <q-list data-cy="heatsRandomizedList">
+                    <q-item
+                      v-for="heat in store.heats"
+                      :key="heat.name"
+                      dense
+                    >
                       {{ heat.name }}
                     </q-item>
                   </q-list>
@@ -27,7 +31,7 @@
                       :key="heat.name"
                       dense
                     >
-                      {{ randomHeats[index].tiers?.length }}
+                      {{ randomHeats[index]?.tiers?.length }}
                     </q-item>
                   </q-list>
                 </div>
@@ -41,12 +45,12 @@
 
         <q-expansion-item
           group="randomized-group"
-          icon="explore"
           label="Mirrors"
+          data-cy="mirrorsRandomizedExpansion"
         >
           <q-card>
             <q-card-section>
-              <q-list>
+              <q-list data-cy="mirrorsRandomizedList">
                 <q-item
                   v-for="(mirror, index) in randomMirrors"
                   :key="index"
@@ -65,26 +69,89 @@
             </q-card-section>
           </q-card>
         </q-expansion-item>
+
+        <q-separator />
+
+        <q-expansion-item
+          group="randomized-group"
+          label="Companion - Keepsake - Weapon"
+          data-cy="miscRandomizedExpansion"
+        >
+          <q-card>
+            <q-card-section>
+              <q-list>
+                <q-item
+                  data-cy="companionRandomizedItem"
+                  dense
+                >
+                <div
+                  class="text-center col-6"
+                >
+                  Companion
+                </div>
+                <div
+                  class="text-center col-6"
+                >
+                  {{ randomCompanion }}
+                </div>
+                </q-item>
+                <q-item
+                  data-cy="keepsakeRandomizedItem"
+                  dense
+                >
+                <div
+                  class="text-center col-6"
+                >
+                  Keepsake
+                </div>
+                <div
+                  class="text-center col-6"
+                >
+                  {{ randomKeepsake }}
+                </div>
+                </q-item>
+                <q-item
+                  data-cy="weaponRandomizedItem"
+                  dense
+                >
+                <div
+                  class="text-center col-6"
+                >
+                  Weapon
+                </div>
+                <div
+                  class="text-center col-6"
+                >
+                  {{ randomWeapon.name }} - {{ randomWeapon.aspect}}
+                </div>
+                </q-item>
+              </q-list>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
       </q-list>
     </q-card-section>
   </q-card>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import {
+  onMounted, ref, Ref, watch,
+} from 'vue';
 import useStore from '../store';
+import { Heat, Weapon, Companion } from '../types';
 
 const store = useStore();
-
-type Heat = {
-  name: string;
-  tiers: number[];
-  weighting: number;
-};
 
 interface hasWeighting {
   weighting: number;
 }
+
+const randomHeats: Ref<Partial<Heat>[]> = ref([]);
+const randomMirrors: Ref<string[]> = ref([]);
+const randomCompanion: Ref<Companion> = ref('');
+const randomKeepsake: Ref<string> = ref('');
+const randomWeapon: Ref<{name: string, aspect: string}> = ref({ name: '', aspect: '' });
 
 function shuffleArray<T>(arr: T[]): T[] {
   const newArr = [...arr];
@@ -222,8 +289,57 @@ function randomizeMirror(): string[] {
   return randomizedMirrors;
 }
 
-const randomHeats = computed(() => randomizeHeats());
-const randomMirrors = computed(() => randomizeMirror());
+function randomizeCompanion(): string {
+  const companions = store.getCompanions;
+  return completelyRandom(companions);
+}
+
+function randomizeKeepsake(): string {
+  const keepsakes = store.getKeepsakes;
+
+  const keepsake = store.weightedRandomization
+    ? getWeightedRandom(keepsakes)
+    : completelyRandom(keepsakes);
+
+  return keepsake.name;
+}
+
+function randomizeWeapon(): Weapon {
+  const weapons = store.getWeapons;
+  return completelyRandom(weapons);
+}
+
+function randomizeWeaponAspect(weapon: Weapon): string {
+  return completelyRandom(weapon.aspects);
+}
+
+function setRandomizedItems() {
+  randomHeats.value = randomizeHeats();
+  randomMirrors.value = randomizeMirror();
+  randomCompanion.value = randomizeCompanion();
+  randomKeepsake.value = randomizeKeepsake();
+  const weapon = randomizeWeapon();
+  randomWeapon.value = {
+    name: weapon.name,
+    aspect: randomizeWeaponAspect(weapon),
+  };
+}
+
+onMounted(() => setRandomizedItems());
+watch(() => store.heatLevel, () => { randomHeats.value = randomizeHeats(); });
+watch(() => store.heatsFilter.length, () => { randomHeats.value = randomizeHeats(); });
+watch(() => store.mirrorsFilter.length, () => { randomMirrors.value = randomizeMirror(); });
+watch(() => store.keepsakesFilter.length, () => { randomKeepsake.value = randomizeKeepsake(); });
+watch(() => store.companionsFilter.length, () => { randomCompanion.value = randomizeCompanion(); });
+watch(() => store.weaponsFilter.length, () => {
+  const weapon = randomizeWeapon();
+  randomWeapon.value = {
+    name: weapon.name,
+    aspect: randomizeWeaponAspect(weapon),
+  };
+});
+
+defineExpose({ setRandomizedItems });
 </script>
 
 <style lang="scss" scoped>

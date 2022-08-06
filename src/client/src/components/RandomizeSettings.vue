@@ -6,11 +6,13 @@
           v-model="store.weightedRandomization"
           label="Weighted Randomization"
           color="primary"
+          data-cy="weightedRandomizationToggle"
         />
         <q-toggle
           v-model="store.hellMode"
           label="Hell Mode"
           color="secondary"
+          data-cy="hellModeToggle"
         />
       </div>
       <q-slider
@@ -22,10 +24,18 @@
         :label-value="`Heat Level: ${store.heatLevel}`"
         switch-label-side
         color="secondary"
+        data-cy="heatLevelSlider"
       />
     </q-card-section>
     <q-card-section>
-      <q-btn color="primary" label="Randomize" class="full-width" unelevated />
+      <q-btn
+        color="primary"
+        label="Randomize"
+        class="full-width"
+        unelevated
+        data-cy="randomizeButton"
+        @click="$emit('randomize')"
+      />
     </q-card-section>
   </q-card>
 </template>
@@ -37,6 +47,8 @@ import useStore from '../store';
 const store = useStore();
 
 const minHeatLevel = ref(1);
+
+// defineEmits('randomize', '');
 
 watch(
   () => store.hellMode,

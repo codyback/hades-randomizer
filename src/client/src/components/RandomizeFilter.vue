@@ -3,7 +3,7 @@
     <q-card-section>
       <h4>Filters</h4>
       <q-list dense>
-        <q-expansion-item group="filter-group" icon="explore" label="Heats">
+        <q-expansion-item group="filter-group" label="Heats">
           <q-card>
             <q-card-section>
               <q-list>
@@ -27,7 +27,6 @@
 
         <q-expansion-item
           group="filter-group"
-          icon="perm_identity"
           label="Mirrors"
         >
           <q-card>
@@ -59,7 +58,6 @@
 
         <q-expansion-item
           group="filter-group"
-          icon="shopping_cart"
           label="Keepsakes"
         >
           <q-card>
@@ -85,7 +83,6 @@
 
         <q-expansion-item
           group="filter-group"
-          icon="bluetooth"
           label="Companions"
         >
           <q-card>
@@ -109,7 +106,7 @@
 
         <q-separator />
 
-        <q-expansion-item group="filter-group" icon="bluetooth" label="Weapons">
+        <q-expansion-item group="filter-group" label="Weapons">
           <q-card>
             <q-card-section>
               <q-list

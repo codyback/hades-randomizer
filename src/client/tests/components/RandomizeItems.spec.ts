@@ -1,6 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { shallowMount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
+import { shallowMount, VueWrapper } from '@vue/test-utils';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { ComponentPublicInstance } from 'vue';
 import useStore from '../../src/store';
 
 import RandomizeItems from '../../src/components/RandomizedItems.vue';
@@ -8,13 +9,29 @@ import RandomizeItems from '../../src/components/RandomizedItems.vue';
 const mountWith = () => {
   return shallowMount(RandomizeItems, {
     global: {
-      plugins: [createTestingPinia()],
+      plugins: [createTestingPinia({
+        initialState: {
+          main: {
+            heatLevel: 3,
+            hellMode: false,
+            hellModeHeats: ['testing3'],
+            heats: [
+              { name: 'testing', tiers: [1] },
+              { name: 'testing2', tiers: [2] },
+              { name: 'testing3', tiers: [3] },
+            ],
+            companions: ['companion', 'companion2'],
+            keepsakes: [{ name: 'keepsake', weighting: 1 }, { name: 'keepsake2', weighting: 2 }],
+            weapons: [{ name: 'weapon', aspects: ['1', '2', '3', '4'] }, { name: 'weapon2', aspects: ['1', '2', '3', '4'] }],
+          }
+        }
+      })],
     },
   });
 };
 
 describe('RandomizeItems', () => {
-  let wrapper: any;
+  let wrapper: VueWrapper<ComponentPublicInstance<typeof RandomizeItems>>;
   let store: any;
 
   beforeEach(() => {
@@ -27,16 +44,6 @@ describe('RandomizeItems', () => {
   });
 
   describe('methods', () => {
-    beforeEach(() => {
-      store.heatLevel = 3;
-      store.hellMode = false;
-      store.hellModeHeats = ['testing3'];
-      store.heats = [
-        { name: 'testing', tiers: [1] },
-        { name: 'testing2', tiers: [2] },
-        { name: 'testing3', tiers: [3] },
-      ];
-    });
     describe('shuffleArray', () => {
       it('shuffles an array', () => {
         const arr = [1, 2, 3, 4, 5];
@@ -171,6 +178,56 @@ describe('RandomizeItems', () => {
         const mirror = wrapper.vm.randomizeMirror();
 
         expect(mirror[0]).to.be.oneOf(possibleMirrors);
+      });
+    });
+
+    describe('randomizeCompanion', () => {
+      it('returns a random companion', () => {
+        const possibleCompanions = ['companion', 'companion2'];
+        const companion = wrapper.vm.randomizeCompanion();
+
+        expect(companion).to.be.oneOf(possibleCompanions);
+      });
+    });
+
+    describe('randomizeKeepsake', () => {
+      it('returns a completely random keepsake', async () => {
+        store.weightedRandomization = false;
+        await wrapper.vm.$nextTick();
+        const possibleKeepsakes = ['keepsake', 'keepsake2'];
+        const keepsake = wrapper.vm.randomizeKeepsake();
+
+        expect(keepsake).to.be.oneOf(possibleKeepsakes);
+      });
+
+      it('returns a weighted random keepsake', async () => {
+        store.weightedRandomization = true;
+        await wrapper.vm.$nextTick();
+        const possibleKeepsakes = ['keepsake', 'keepsake2'];
+        const keepsake = wrapper.vm.randomizeKeepsake();
+
+        expect(keepsake).to.be.oneOf(possibleKeepsakes);
+      });
+    });
+
+    describe('randomizeWeapon', () => {
+      it('returns a random weapon', () => {
+        const possibleWeapons = ['weapon', 'weapon2'];
+        const weapon = wrapper.vm.randomizeWeapon();
+
+        expect(weapon.name).to.be.oneOf(possibleWeapons);
+        expect(wrapper.vm.randomWeapon.name).to.be.oneOf(possibleWeapons);
+      });
+    });
+
+    describe('randomizeAspect', () => {
+      it('returns a random aspect', async () => {
+        const possibleAspects = ['1', '2', '3', '4'];
+        const randomWeapon = wrapper.vm.randomizeWeapon();
+        const aspect = wrapper.vm.randomizeWeaponAspect(randomWeapon);
+
+        expect(aspect).to.be.oneOf(possibleAspects);
+        expect(wrapper.vm.randomWeapon.aspect).to.be.oneOf(possibleAspects);
       });
     });
   });
