@@ -9,7 +9,7 @@ const useStore = defineStore('main', {
       'Shady',
       'Fidi',
       'Antos',
-    ],
+    ] as const,
     heats: [
       { name: 'Hard Labor', tiers: [1, 1, 1, 1, 1], weighting: 35 },
       { name: 'Lasting Consequences', tiers: [1, 1, 1, 1], weighting: 45 },
@@ -162,17 +162,32 @@ const useStore = defineStore('main', {
       },
     ],
     companionsFilter: [] as string[],
-    heatsFilter: [] as string[],
+    heatsFilter: ['Personal Liability'] as string[],
     keepsakesFilter: [] as string[],
     mirrorsFilter: [] as number[],
     weaponsFilter: [] as string[],
     hellMode: false,
+    hellModeHeats: [
+      'Hard Labor',
+      'Lasting Consequences',
+      'Jury Summons',
+      'Calisthenics Program',
+      'Personal Liability',
+    ],
+    weightedRandomization: true,
+    heatLevel: 20,
   }),
   getters: {
     getCompanions:
       (state) => state.companions.filter((item) => !state.companionsFilter.includes(item)),
     getHeats:
-      (state) => state.heats.filter((item) => !state.heatsFilter.includes(item.name)),
+      (state) => {
+        const filteredHeats = state.heats.filter((item) => !state.heatsFilter.includes(item.name));
+        return filteredHeats.map((item) => ({
+          ...item,
+          tiers: [...item.tiers],
+        }));
+      },
     getKeepsakes:
       (state) => state.keepsakes.filter((item) => !state.keepsakesFilter.includes(item.name)),
     getMirrors:
@@ -183,9 +198,14 @@ const useStore = defineStore('main', {
         const aspects = weapon.aspects.filter((aspect) => !state.weaponsFilter.includes(`${weapon.name}|${aspect}`));
         return {
           name: weapon.name,
-          aspects,
+          aspects: [...aspects],
         };
       });
+    },
+    getHeatLevelMax: (state) => {
+      const heats = state.heats.filter((heat) => !state.heatsFilter.includes(heat.name));
+      const heatLevels = heats.map((heat) => heat.tiers.reduce((a, b) => a + b, 0));
+      return heatLevels.reduce((a, b) => a + b, 0);
     },
   },
 });

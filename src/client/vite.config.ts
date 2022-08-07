@@ -1,4 +1,5 @@
-import { defineConfig } from 'vitest/config';
+/// <reference types="vitest" />
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin';
 
@@ -9,11 +10,18 @@ export default defineConfig({
       template: { transformAssetUrls },
     }),
     quasar({
-      sassVariables: 'src/assets/scss/quasar-variables.scss',
+      sassVariables: './src/assets/scss/quasar-variables.scss',
     }),
   ],
   test: {
+    globals: true,
     environment: 'happy-dom',
-    reporters: ['verbose'],
+    reporters: 'verbose',
+    setupFiles: ['./tests/setup.ts'],
+    coverage: {
+      enabled: true,
+      reporter: ['text', 'html', 'json'],
+      branches: 85,
+    },
   },
 });

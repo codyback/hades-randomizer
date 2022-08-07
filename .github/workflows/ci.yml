@@ -94,4 +94,4 @@ jobs:
         with:
           browser: chrome
           start: yarn client
-          wait-on: 'http://localhost:3000'
+          wait-on: 'http://localhost:5173'
