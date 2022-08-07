@@ -327,6 +327,7 @@ function setRandomizedItems() {
 
 onMounted(() => setRandomizedItems());
 watch(() => store.heatLevel, () => { randomHeats.value = randomizeHeats(); });
+watch(() => store.hellMode, () => { randomHeats.value = randomizeHeats(); });
 watch(() => store.heatsFilter.length, () => { randomHeats.value = randomizeHeats(); });
 watch(() => store.mirrorsFilter.length, () => { randomMirrors.value = randomizeMirror(); });
 watch(() => store.keepsakesFilter.length, () => { randomKeepsake.value = randomizeKeepsake(); });
