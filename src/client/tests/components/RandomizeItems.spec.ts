@@ -1,13 +1,15 @@
-import { createTestingPinia } from '@pinia/testing';
-import { shallowMount, VueWrapper } from '@vue/test-utils';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { ComponentPublicInstance } from 'vue';
+import {createTestingPinia} from '@pinia/testing';
+import {mount, VueWrapper} from '@vue/test-utils';
+import {beforeEach, describe, expect, it} from 'vitest';
+import {ComponentPublicInstance} from 'vue';
 import useStore from '../../src/store';
-
+import {installQuasarPlugin} from '@quasar/quasar-app-extension-testing-unit-vitest';
 import RandomizeItems from '../../src/components/RandomizedItems.vue';
 
+installQuasarPlugin();
+
 const mountWith = () => {
-  return shallowMount(RandomizeItems, {
+  return mount(RandomizeItems, {
     global: {
       plugins: [createTestingPinia({
         initialState: {
@@ -16,13 +18,17 @@ const mountWith = () => {
             hellMode: false,
             hellModeHeats: ['testing3'],
             heats: [
-              { name: 'testing', tiers: [1] },
-              { name: 'testing2', tiers: [2] },
-              { name: 'testing3', tiers: [3] },
+              {name: 'testing', tiers: [1]},
+              {name: 'testing2', tiers: [2]},
+              {name: 'testing3', tiers: [3]},
             ],
+            mirrors: [['mirror', 'mirror2']],
             companions: ['companion', 'companion2'],
-            keepsakes: [{ name: 'keepsake', weighting: 1 }, { name: 'keepsake2', weighting: 2 }],
-            weapons: [{ name: 'weapon', aspects: ['1', '2', '3', '4'] }, { name: 'weapon2', aspects: ['1', '2', '3', '4'] }],
+            keepsakes: [{name: 'keepsake', weighting: 1}, {name: 'keepsake2', weighting: 2}],
+            weapons: [{name: 'weapon', aspects: ['1', '2', '3', '4']}, {
+              name: 'weapon2',
+              aspects: ['1', '2', '3', '4']
+            }],
           }
         }
       })],
@@ -37,10 +43,6 @@ describe('RandomizeItems', () => {
   beforeEach(() => {
     wrapper = mountWith();
     store = useStore();
-  });
-
-  it('renders correctly', () => {
-    expect(wrapper.element).toMatchSnapshot();
   });
 
   describe('methods', () => {

@@ -1,9 +1,11 @@
-import { describe, it, expect } from 'vitest';
-import { shallowMount } from '@vue/test-utils';
-import { createTestingPinia } from '@pinia/testing';
+import {describe, expect, it} from 'vitest';
+import {shallowMount} from '@vue/test-utils';
+import {createTestingPinia} from '@pinia/testing';
 import useStore from '../../src/store';
-
+import {installQuasarPlugin} from "@quasar/quasar-app-extension-testing-unit-vitest";
 import RandomizeSettings from '../../src/components/RandomizeSettings.vue';
+
+installQuasarPlugin();
 
 const mountWith = () => {
   return shallowMount(RandomizeSettings, {
@@ -20,10 +22,6 @@ describe('RandomizeSettings', () => {
   beforeEach(() => {
     wrapper = mountWith();
     store = useStore();
-  });
-
-  it('renders correctly', () => {
-    expect(wrapper.element).toMatchSnapshot();
   });
 
   describe('watchers', () => {

@@ -11,15 +11,33 @@ However, if you feel like that makes things to easy you can turn that option off
 
 ### Project setup
 ```
-npm install
+yarn install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
-npm run serve
+yarn client
 ```
 
 ### Compiles and minifies for production
+
 ```
-npm run build
+yarn client:build
+```
+
+### Unit tests
+
+```sh
+yarn test:client
+```
+
+### E2E tests
+
+```shell
+# runs in headless mode
+yarn e2e:run
+
+# runs in an interactive mode
+yarn e2e:open
 ```

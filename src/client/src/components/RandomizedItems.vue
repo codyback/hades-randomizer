@@ -135,11 +135,9 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  onMounted, ref, Ref, watch,
-} from 'vue';
+import {onMounted, ref, Ref, watch,} from 'vue';
 import useStore from '../store';
-import { Heat, Weapon, Companion } from '../types';
+import {Companion, Heat, Weapon} from '../types';
 
 const store = useStore();
 
@@ -345,8 +343,8 @@ defineExpose({ setRandomizedItems });
 
 <style lang="scss" scoped>
 h4 {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   text-align: center;
   font-size: 1.5em;
   line-height: 1.5em;

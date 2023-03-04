@@ -1,13 +1,15 @@
-import { shallowMount } from '@vue/test-utils';
-import { describe, it, expect } from 'vitest';
-import { createTestingPinia } from '@pinia/testing';
+import {mount} from '@vue/test-utils';
+import {describe, expect, it} from 'vitest';
+import {createTestingPinia} from '@pinia/testing';
 import useStore from '../../src/store';
-import { Heat, Keepsake, Mirror, Weapon } from '../../src/types';
-
+import {Heat, Keepsake, Mirror, Weapon} from '../../src/types';
+import {installQuasarPlugin} from "@quasar/quasar-app-extension-testing-unit-vitest";
 import RandomizeFilter from '../../src/components/RandomizeFilter.vue';
 
+installQuasarPlugin();
+
 const mountWith = () => {
-  return shallowMount(RandomizeFilter, {
+  return mount(RandomizeFilter, {
     global: {
       plugins: [createTestingPinia()],
     },
